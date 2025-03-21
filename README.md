@@ -92,6 +92,7 @@ void loop() {
 ## Design Philosophy
 
 Choreography enforces non-blocking code patterns, which is essential for reliable operation on microcontrollers. Each stance must complete quickly, allowing other processes to run. This approach enables effective multitasking without the overhead of a real-time operating system.
+> -This means: forget all blink examples that use delay and every other code that uses delay or loops
 
 ## License
 
