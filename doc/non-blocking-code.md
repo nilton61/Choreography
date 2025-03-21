@@ -1,5 +1,3 @@
-I'd be happy to help you create a well-structured document explaining why blocking code is problematic and how Choreography provides a better alternative. Here's a draft outline for your document:
-
 # Understanding Non-Blocking Code: Why Choreography Matters
 
 ## The Problem with Blocking Code
