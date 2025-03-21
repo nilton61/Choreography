@@ -19,5 +19,6 @@ void loop() {
     digitalWrite(LED_BUILTIN, ledState);
     Serial.println(ledState ? "LED on" : "LED off");
   }
-}
+  
   // Här kan andra uppgifter utföras utan att blockeras
+}
