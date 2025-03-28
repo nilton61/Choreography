@@ -53,7 +53,7 @@ void  message() {
 
 void testFunction() {
   Serial.println("Test function called");
-  newbie.passodoble(message, idle);
+  if( newbie.timeInStance() >= 1000) newbie.passodoble(message, idle);
 }//testFunction
 
 void idle() {
