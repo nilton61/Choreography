@@ -7,7 +7,7 @@ class Choreography {
   private:
     stancePointer currentStance;  //Aktuellt tillstånd
     unsigned long timeStamp;      //Tidsstämpel
-   
+
   public:
     Choreography(stancePointer initialStance);
     void dance();                 //Anropar det aktuella tillståndet
@@ -25,6 +25,10 @@ Choreography::Choreography(stancePointer initialStance) {
 void Choreography::dance() {
   currentStance();
 }//dance
+
+unsigned long Choreography::timeInStance() {
+  return millis() - timeStamp;
+}//timeInStance
 
 void Choreography::quickstep(stancePointer nextStance) {
   timeStamp = millis();
