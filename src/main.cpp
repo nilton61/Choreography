@@ -4,7 +4,7 @@ typedef void stance();            //Tilståndsfunktion
 typedef stance* stancePointer;    //Pekre till tillståndsfunkrion
 
 class Choreography {
-  public:
+  private:
     stancePointer currentStance;  //Aktuellt tillstånd
     unsigned long stanceStartTime;//Tidsstämpel
     
