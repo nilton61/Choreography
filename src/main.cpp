@@ -3,9 +3,6 @@
 typedef void stance();            //Tilståndsfunktion
 typedef stance* stancePointer;    //Pekre till tillståndsfunkrion
 
-
-
-
 class Choreography {
   private:
     stancePointer currentStance;  //Aktuellt tillstånd
@@ -18,7 +15,6 @@ class Choreography {
     void quickstep(stancePointer nextStance); //Byter till nästa tillstånd
     void passodoble(stancePointer setupFunc, stancePointer nextStance);
 };//Choreography
-
 
 // Implementera klassen
 Choreography::Choreography(stancePointer initialStance) {
