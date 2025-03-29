@@ -14,6 +14,10 @@ class Choreography {
     unsigned long timeInStance(); //Returnerar millisekunder i nuvarande tillstånd
     void quickstep(stancePointer nextStance); //Byter till nästa tillstånd
     void passodoble(stancePointer setupFunc, stancePointer nextStance);
+    // Byter till nextStance efter angivet tidsintervall
+    void sequence(unsigned long interval, stancePointer nextStance);
+    // Kör setupFunc och byter sedan till nextStance efter angivet tidsintervall
+    void sequence(unsigned long interval, stancePointer setupFunc, stancePointer nextStance);
 };//Choreography
 
 // Implementera klassen
@@ -21,6 +25,22 @@ Choreography::Choreography(stancePointer initialStance) {
   currentStance = initialStance;
   timeStamp = millis();
 }//Constructor
+
+void Choreography::sequence(unsigned long interval, stancePointer nextStance) {
+  if (millis() - timeStamp >= interval) { //timecheck
+    timeStamp = millis();                 //ny timestamp
+    currentStance = nextStance;           //byt tillstånd nästa varv
+  }//timecheck
+}//sequence med nextStance
+
+// Kör setupFunc och byter sedan till nextStance efter angivet tidsintervall
+void Choreography::sequence(unsigned long interval, stancePointer setupFunc, stancePointer nextStance) {
+  if (millis() - timeStamp >= interval) {//timecheck
+    setupFunc();                        // Kör setup-funktionen en gång
+    timeStamp = millis();               // ny timestamp
+    currentStance = nextStance;         // byt tillstånd nästa varv
+  }//timecheck
+}//sequence med setupFunc och nextStance
 
 void Choreography::dance() {
   currentStance();
