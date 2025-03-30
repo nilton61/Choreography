@@ -62,28 +62,28 @@ void Choreography::passodoble(stancePointer setupFunc, stancePointer nextStance)
 }//passodoble
 
 // Fördeklarera funktioner
-stance testFunction;
-stance idle;
-Choreography newbie(testFunction);//skapa global instans
+#define LED_PIN 13
+int ledState = LOW;
 
-// Implementera funktionerna
-void  message() {
-  Serial.println("Switching to idle");
-}
+// Fördeklarera funktionerna
+stance blink;
 
-void testFunction() {
-  Serial.println("Test function called");
-  if( newbie.timeInStance() >= 1000) newbie.passodoble(message, idle);
-}//testFunction
-
-void idle() {
-  // Gör ingenting i detta tillstånd
-}//idle
+// Skapa instans med initial tillståndsfunktion
+Choreography ledDancer(blink);
 
 void setup() {
-  Serial.begin(9600);
-}//setup()
+  pinMode(LED_PIN, OUTPUT);
+}//setup
 
 void loop() {
-  newbie.dance();
-}//loop()
+  ledDancer.dance();
+}//loop
+
+void change() {
+  ledState = (ledState == LOW) ? HIGH : LOW; //change state
+  digitalWrite(LED_PIN, ledState);
+}//change
+
+void blink() {
+  ledDancer.sequence(1000, change, blink);
+}//blink
