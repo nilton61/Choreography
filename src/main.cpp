@@ -80,7 +80,7 @@ void loop() {
 }//loop
 
 void change() {
-  ledState = (ledState == LOW) ? HIGH : LOW; //change state
+  ledState = !ledState;  // Slå om LED-tillståndet  
   digitalWrite(LED_PIN, ledState);
 }//change
 
