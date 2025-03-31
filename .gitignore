@@ -1,1 +1,8 @@
 .pio/
+.vscode/
+include/
+lib/
+test/
+*~
+*.swp
+.DS_Store
