@@ -1,0 +1,9 @@
+# Files and directories to exclude when downloading/installing through package managers
+test/ export-ignore
+.vscode/ export-ignore
+.pio/ export-ignore
+include/ export-ignore
+lib/ export-ignore
+platformio.ini export-ignore
+choreography.code-workspace export-ignore
+.gitattributes export-ignore
