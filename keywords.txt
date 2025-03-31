@@ -1,0 +1,15 @@
+# Syntax Coloring Map For Choreography
+
+# Classes & Namespaces (KEYWORD1)
+Choreography    KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+dance           KEYWORD2
+quickstep       KEYWORD2
+passodoble      KEYWORD2
+sequence        KEYWORD2
+timeInStance    KEYWORD2
+
+# Data Types (KEYWORD3)
+stance          KEYWORD3
+stancePointer   KEYWORD3
