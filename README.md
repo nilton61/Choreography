@@ -92,7 +92,7 @@ Choreography enforces non-blocking code patterns, which is essential for reliabl
 
 ## License
 
-[MIT License](LICENSE)
+[GNU GENERAL PUBLIC LICENSE Version 3](LICENSE)
 
 ## Contribution
 
