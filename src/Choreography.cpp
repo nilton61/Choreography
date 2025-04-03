@@ -2,23 +2,24 @@
 #include <Choreography.h>
 
 // Implementera klassen
-Choreography::Choreography(stancePointer initialStance) {
+  Choreography::Choreography(stancePointer initialStance, unsigned long (*timeFn)()) {
     currentStance = initialStance;
-    timeStamp = millis();
-  }//Constructor
+    timeFunc = timeFn;
+    timeStamp = timeFunc();
+  }//constructor
   
   void Choreography::sequence(unsigned long interval, stancePointer nextStance) {
-    if (millis() - timeStamp >= interval) { //timecheck
-      timeStamp = millis();                 //ny timestamp
+    if (timeFunc() - timeStamp >= interval) { //timecheck
+      timeStamp = timeFunc();                 //ny timestamp
       currentStance = nextStance;           //byt tillstånd nästa varv
     }//timecheck
   }//sequence med nextStance
   
   // Kör setupFunc och byter sedan till nextStance efter angivet tidsintervall
   void Choreography::sequence(unsigned long interval, stancePointer setupFunc, stancePointer nextStance) {
-    if (millis() - timeStamp >= interval) {//timecheck
+    if (timeFunc() - timeStamp >= interval) {//timecheck
       setupFunc();                        // Kör setup-funktionen en gång
-      timeStamp = millis();               // ny timestamp
+      timeStamp = timeFunc();               // ny timestamp
       currentStance = nextStance;         // byt tillstånd nästa varv
     }//timecheck
   }//sequence med setupFunc och nextStance
@@ -28,17 +29,17 @@ Choreography::Choreography(stancePointer initialStance) {
   }//dance
   
   unsigned long Choreography::timeInStance() {
-    return millis() - timeStamp;
+    return timeFunc() - timeStamp;
   }//timeInStance
   
   void Choreography::quickstep(stancePointer nextStance) {
-    timeStamp = millis();
+    timeStamp = timeFunc();
     currentStance = nextStance;
   }//quickstep
   
   void Choreography::passodoble(stancePointer setupFunc, stancePointer nextStance) {
     setupFunc();              // Kör setup-funktionen en gång
-    timeStamp = millis();     // Uppdatera tidsstämpeln
+    timeStamp = timeFunc();     // Uppdatera tidsstämpeln
     currentStance = nextStance; // Byt till nästa tillstånd
   }//passodoble
   

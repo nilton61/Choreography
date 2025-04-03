@@ -6,11 +6,12 @@ typedef stance* stancePointer;    //Pekre till tillståndsfunkrion
 
 class Choreography {
   private:
-    stancePointer currentStance;  //Aktuellt tillstånd
-    unsigned long timeStamp;      //Tidsstämpel
+  stancePointer currentStance;  //Aktuellt tillstånd
+  unsigned long timeStamp;      //Tidsstämpel
+  unsigned long (*timeFunc)();  //Pekare till tidsfunktion
 
   public:
-    Choreography(stancePointer initialStance);
+    Choreography(stancePointer initialStance, unsigned long (*timeFn)() = millis);
     void dance();                 //Anropar det aktuella tillståndet
     unsigned long timeInStance(); //Returnerar millisekunder i nuvarande tillstånd
     void quickstep(stancePointer nextStance); //Byter till nästa tillstånd

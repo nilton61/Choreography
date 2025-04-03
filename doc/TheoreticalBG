@@ -1,0 +1,31 @@
+## Theoretical Background
+
+Choreography is built on the mathematical foundation of finite state machines (FSM), a concept from abstract algebra and formal language theory.
+
+### Classical FSM Definition vs Choreography Implementation
+
+Classical finite state machines are formally defined as a 5-tuple (Q, Σ, δ, q0, F) where:
+
+1. **Q**: A finite set of states
+   - In Choreography, each `stance` function represents a state
+
+2. **Σ**: A finite set of input symbols
+   - Choreography stances can flexibly handle any inputs they need to examine
+
+3. **δ**: A transition function that takes a state and input symbol and returns a new state
+   - Each stance determines its own transitions using `quickstep` or `sequence` calls
+
+4. **q0**: An initial state
+   - Set by the constructor when you create a Choreography instance
+
+5. **F**: A set of accept (final) states
+   - Represented by stances that don't transition to other states
+
+While maintaining the mathematical robustness of traditional state machines, Choreography offers enhanced flexibility by:
+
+- Encapsulating state-specific logic in separate functions
+- Allowing complex transition conditions beyond simple input symbols
+- Providing timing-based transitions through the `sequence` method
+- Supporting initialization routines via the `passodoble` function
+
+This approach results in more readable, maintainable code while preserving the power of the formal state machine model.
