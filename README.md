@@ -18,37 +18,33 @@ Choreography provides an elegant and highly efficient framework for implementing
 ## Basic Usage
 
 ```c
+#include <Arduino.h>
 #include <Choreography.h>
 
-Choreography dancer;
+#define LED_PIN 13
+int ledState = LOW;
+
+stance blink;// Declare state function
+
+//create state machine, set timebase to microseconds
+Choreography ledDancer(blink, micros);
 
 void setup() {
-  dancer.begin(waitForButton);
-}
+  pinMode(LED_PIN, OUTPUT);
+}//setup
 
 void loop() {
-  dancer.dance();
-}
+  ledDancer.dance();//run state machine
+}//loop
 
-stance waitForButton() {
-  if (digitalRead(BUTTON_PIN) == HIGH) {
-    quickstep(motorRunning);
-  }
-}
+void change() {
+  ledState = !ledState;  // change led state  
+  digitalWrite(LED_PIN, ledState);
+}//change
 
-stance motorRunning() {
-  digitalWrite(MOTOR_PIN, HIGH);
-  
-  // Transition after 2 seconds
-  if (dancer.timeInStance() > 2000) {
-    quickstep(motorOff);
-  }
-}
-
-stance motorOff() {
-  digitalWrite(MOTOR_PIN, LOW);
-  quickstep(waitForButton);
-}
+void blink() {
+  ledDancer.sequence(1000000, change, blink);
+}//blink
 ```
 
 ## Advanced Features
@@ -96,7 +92,7 @@ Choreography enforces non-blocking code patterns, which is essential for reliabl
 
 ## License
 
-[MIT License](LICENSE)
+[GNU GENERAL PUBLIC LICENSE Version 3](LICENSE)
 
 ## Contribution
 
