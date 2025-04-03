@@ -6,4 +6,3 @@ test/
 *~
 *.swp
 .DS_Store
-platformio.ini
