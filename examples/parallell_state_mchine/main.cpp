@@ -1,10 +1,10 @@
 #include <Arduino.h>
 #include <Choreography.h>
 
-typedef enum :byte { RED, YELLOW, GREEN, NCOLOR} color;
-typedef enum :byte {REDPIN = 14, YELLOWPIN, GREENPIN} pin;
+enum {RED, YELLOW, GREEN, NCOLOR};
+enum {REDPIN = 14, YELLOWPIN, GREENPIN};
 
-// Fördeklarera funktionerna
+// 
 stance redBlink;
 stance yellowBlink;
 stance greenBlink;
@@ -28,19 +28,19 @@ void loop() {
   }
 }//loop
 
-void changeRed() {
+stance changeRed() {
   digitalWrite(REDPIN, !digitalRead(REDPIN));
 }//changeRed
 
-void changeYellow() {
+stance changeYellow() {
   digitalWrite(YELLOWPIN, !digitalRead(YELLOWPIN));
 }//changeYellow
 
-void changeGreen() {
+stance changeGreen() {
   digitalWrite(GREENPIN, !digitalRead(GREENPIN));
 }//changeGreen
 
-// Definitioner för stance-funktionerna
+// Impelementing state functions
 void redBlink() {
   blinker[RED].sequence(809989, changeRed, redBlink);
 }//redBlink
