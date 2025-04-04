@@ -1,13 +1,13 @@
 #include <Arduino.h>
 #include <Choreography.h>
 
-typedef enum :byte { RED, YELLOW, GREEN, NCOLOR} color;
-typedef enum :byte {REDPIN = 14, YELLOWPIN, GREENPIN} pin;
+enum {RED, YELLOW, GREEN, NCOLOR};
+enum {REDPIN = 14, YELLOWPIN, GREENPIN};
 
-// Fördeklarera funktionerna
-stance redBlink;
-stance yellowBlink;
-stance greenBlink;
+// 
+stance redBlink();
+stance yellowBlink();
+stance greenBlink();
 
 // Skapa instans med initial tillståndsfunktion och micros som tidsbas
 Choreography blinker[NCOLOR] = {
@@ -23,32 +23,32 @@ void setup() {
 }//setup
 
 void loop() {
-  for (byte i = 0; i < NCOLOR; i++) {
-    blinker[i].dance();
+  for (byte c = RED; c < NCOLOR; c++) {
+    blinker[c].dance();
   }
 }//loop
 
-void changeRed() {
+stance changeRed(){
   digitalWrite(REDPIN, !digitalRead(REDPIN));
 }//changeRed
 
-void changeYellow() {
+stance changeYellow() {
   digitalWrite(YELLOWPIN, !digitalRead(YELLOWPIN));
 }//changeYellow
 
-void changeGreen() {
+stance changeGreen() {
   digitalWrite(GREENPIN, !digitalRead(GREENPIN));
 }//changeGreen
 
-// Definitioner för stance-funktionerna
-void redBlink() {
+// Impelementing state functions
+stance redBlink() {
   blinker[RED].sequence(809989, changeRed, redBlink);
 }//redBlink
 
-void yellowBlink() {
+stance yellowBlink() {
   blinker[YELLOW].sequence(1310867, changeYellow, yellowBlink);
 }//yellowBlink
 
-void greenBlink() {
+stance greenBlink() {
   blinker[GREEN].sequence(2120753, changeGreen, greenBlink);
 }//greenBlink

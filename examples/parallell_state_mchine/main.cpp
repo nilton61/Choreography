@@ -23,20 +23,20 @@ void setup() {
 }//setup
 
 void loop() {
-  for (byte i = 0; i < NCOLOR; i++) {
-    blinker[i].dance();
+  for (byte c = RED; c < NCOLOR; c++) {
+    blinker[c].dance();
   }
 }//loop
 
-stance changeRed() {
+void changeRed(){
   digitalWrite(REDPIN, !digitalRead(REDPIN));
 }//changeRed
 
-stance changeYellow() {
+void changeYellow() {
   digitalWrite(YELLOWPIN, !digitalRead(YELLOWPIN));
 }//changeYellow
 
-stance changeGreen() {
+void changeGreen() {
   digitalWrite(GREENPIN, !digitalRead(GREENPIN));
 }//changeGreen
 

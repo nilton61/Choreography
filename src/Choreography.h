@@ -1,8 +1,8 @@
 #ifndef CHOREOGRAPHY_H
 #define CHOREOGRAPHY_H
 
-typedef void stance();            //Tilståndsfunktion
-typedef stance* stancePointer;    //Pekre till tillståndsfunkrion
+typedef void stance;  // Alias för void
+typedef stance (*stancePointer)();  // Pekare till funktion som returnerar stance (void)
 
 class Choreography {
   private:
