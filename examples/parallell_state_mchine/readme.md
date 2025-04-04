@@ -42,3 +42,7 @@ Data:         33 bytes (1.6% Full)
 (.data + .bss + .noinit)
 
 This shows that even with 3 parallel processes the memory use is minimal, which is crucial on platforms with limited resources like Arduino
+
+## Schematics
+![Kretsschema](Parallel_state_machine_schem.svg)
+![Breadboard uppkoppling](Parallel_state_machine_bb.svg) 
