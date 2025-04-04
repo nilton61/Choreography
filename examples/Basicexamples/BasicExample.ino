@@ -6,7 +6,7 @@
 int ledState = LOW;
 
 // Fördeklarera funktionerna
-stance blink;
+stance blink();
 
 // Skapa instans med initial tillståndsfunktion
 Choreography ledDancer(blink);
@@ -19,11 +19,11 @@ void loop() {
   ledDancer.dance();
 }//loop
 
-void change() {
+stance change() {
   ledState = !ledState;  // Slå om LED-tillståndet  
   digitalWrite(LED_PIN, ledState);
 }//change
 
-void blink() {
+stance blink() {
   ledDancer.sequence(1000, change, blink);
 }//blink

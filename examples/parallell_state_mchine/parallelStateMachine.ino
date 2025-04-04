@@ -5,9 +5,9 @@ enum {RED, YELLOW, GREEN, NCOLOR};
 enum {REDPIN = 14, YELLOWPIN, GREENPIN};
 
 // 
-stance redBlink;
-stance yellowBlink;
-stance greenBlink;
+stance redBlink();
+stance yellowBlink();
+stance greenBlink();
 
 // Skapa instans med initial tillståndsfunktion och micros som tidsbas
 Choreography blinker[NCOLOR] = {
@@ -28,27 +28,27 @@ void loop() {
   }
 }//loop
 
-void changeRed(){
+stance changeRed(){
   digitalWrite(REDPIN, !digitalRead(REDPIN));
 }//changeRed
 
-void changeYellow() {
+stance changeYellow() {
   digitalWrite(YELLOWPIN, !digitalRead(YELLOWPIN));
 }//changeYellow
 
-void changeGreen() {
+stance changeGreen() {
   digitalWrite(GREENPIN, !digitalRead(GREENPIN));
 }//changeGreen
 
 // Impelementing state functions
-void redBlink() {
+stance redBlink() {
   blinker[RED].sequence(809989, changeRed, redBlink);
 }//redBlink
 
-void yellowBlink() {
+stance yellowBlink() {
   blinker[YELLOW].sequence(1310867, changeYellow, yellowBlink);
 }//yellowBlink
 
-void greenBlink() {
+stance greenBlink() {
   blinker[GREEN].sequence(2120753, changeGreen, greenBlink);
 }//greenBlink
