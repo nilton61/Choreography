@@ -1,54 +1,91 @@
-#include <Arduino.h>
-#include <Choreography.h>
+  #include <Arduino.h>
+  #include <Choreography.h>
 
-enum {RED, YELLOW, GREEN, NCOLOR};
-enum {REDPIN = 14, YELLOWPIN, GREENPIN};
+  enum {RED, YELLOW, GREEN, NCOLOR};
+  enum {REDPIN = 14, YELLOWPIN, GREENPIN, SWITCH};
 
-// 
-stance redBlink();
-stance yellowBlink();
-stance greenBlink();
+  enum {FORTH, BACK, B_N_F, NPATTERN};
 
-// Skapa instans med initial tillståndsfunktion och micros som tidsbas
-Choreography blinker[NCOLOR] = {
-  Choreography(redBlink, micros),
-  Choreography(yellowBlink, micros),
-  Choreography(greenBlink, micros)
-};
+  typedef byte LedPattern[NCOLOR];
+  const LedPattern lPattern[NCOLOR] = {
+    {1, 0, 0},  // RED
+    {0, 1, 0},  // YELLOW
+    {0, 0, 1}   // GREEN
+  };
 
-void setup() {
-  pinMode(REDPIN, OUTPUT);
-  pinMode(YELLOWPIN, OUTPUT);
-  pinMode(GREENPIN, OUTPUT);
-}//setup
+  const LedPattern pinPattern = {REDPIN, YELLOWPIN, GREENPIN};
 
-void loop() {
-  for (byte c = RED; c < NCOLOR; c++) {
-    blinker[c].dance();
+ 
+  stance forth();
+  stance back();
+  stance backAndForth();
+  Choreography manager(forth, micros);
+
+  stance forth1();
+  stance forth2();
+  stance forth3();
+  Choreography forthManager(forth1, micros);
+
+  stance back1();
+  stance back2();
+  stance back3();
+  Choreography backManager(back1, micros);
+
+  stance bNf1();
+  stance bNf2();
+  stance bNf3();
+  stance bNf4();
+  stance bNf5();
+  Choreography bNfManager(bNf1, micros);
+
+  stance showRED(){
+    digitalWrite(REDPIN, 1);
+    digitalWrite(YELLOWPIN, 0);
+    digitalWrite(GREENPIN, 0);
   }
-}//loop
 
-stance changeRed(){
-  digitalWrite(REDPIN, !digitalRead(REDPIN));
-}//changeRed
+  stance showYELLOW(){
+    digitalWrite(REDPIN, 0);
+    digitalWrite(YELLOWPIN, 1);
+    digitalWrite(GREENPIN, 0);
+  }
 
-stance changeYellow() {
-  digitalWrite(YELLOWPIN, !digitalRead(YELLOWPIN));
-}//changeYellow
+  stance showGREEN(){
+    digitalWrite(REDPIN, 0);
+    digitalWrite(YELLOWPIN, 0);
+    digitalWrite(GREENPIN, 1);
+  }
 
-stance changeGreen() {
-  digitalWrite(GREENPIN, !digitalRead(GREENPIN));
-}//changeGreen
+  void setup() {
+    pinMode(REDPIN, OUTPUT);
+    pinMode(YELLOWPIN, OUTPUT);
+    pinMode(GREENPIN, OUTPUT);
+    pinMode(SWITCH, INPUT);
+  }//setup
 
-// Impelementing state functions
-stance redBlink() {
-  blinker[RED].sequence(809989, changeRed, redBlink);
-}//redBlink
+  void loop() {
+    forthManager.dance();
+  }//loop
 
-stance yellowBlink() {
-  blinker[YELLOW].sequence(1310867, changeYellow, yellowBlink);
-}//yellowBlink
+  stance forth(){};
+  stance back(){};
+  stance backAndForth(){};
+  stance forth1(){
+    forthManager.sequence(500000, showRED, forth2);
+  };
 
-stance greenBlink() {
-  blinker[GREEN].sequence(2120753, changeGreen, greenBlink);
-}//greenBlink
+  stance forth2(){
+    forthManager.sequence(500000, showYELLOW, forth3);
+  };
+
+  stance forth3(){
+    forthManager.sequence(500000, showGREEN, forth1);
+  };
+  stance back1(){};
+  stance back2(){};
+  stance back3(){};
+  stance bNf1(){};
+  stance bNf2(){};
+  stance bNf3(){};
+  stance bNf4(){};
+  stance bNf5(){};
