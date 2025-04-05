@@ -16,54 +16,86 @@
   stance back1(); stance back2(); stance back3();
   Choreography backManager(back1);
 
+  // Sub machine3 back and forth
   stance bNf1(); stance bNf2(); stance bNf3(); stance bNf4();
   Choreography bNfManager(bNf1);
 
+  //statemachine for debouncing input
+  stance stableLow(); stance transientHigh(); stance transientLow(); stance stableHigh();
+  Choreography debounce(stableLow, micros);
+
+  //display functions showing a single color
   stance showRED(){
     digitalWrite(REDPIN, 1);
     digitalWrite(YELLOWPIN, 0);
     digitalWrite(GREENPIN, 0);
-  }
+  }//showRED
 
   stance showYELLOW(){
     digitalWrite(REDPIN, 0);
     digitalWrite(YELLOWPIN, 1);
     digitalWrite(GREENPIN, 0);
-  }
+  }//showYELLOW
 
   stance showGREEN(){
     digitalWrite(REDPIN, 0);
     digitalWrite(YELLOWPIN, 0);
     digitalWrite(GREENPIN, 1);
-  }
+  }//showGREEN
 
+  boolean oneShot = LOW;
+  
   void setup() {
     pinMode(REDPIN, OUTPUT);
     pinMode(YELLOWPIN, OUTPUT);
     pinMode(GREENPIN, OUTPUT);
     pinMode(SWITCH, INPUT);
-    Serial.begin(9600);
+    //Serial.begin(9600);
   }//setup
 
   void loop() {
+    debounce.dance();
     manager.dance();
   }//loop
 
+  //debounce stances
+  stance stableLow(){
+    if(!digitalRead(SWITCH)) return;  //switch is low
+    oneShot = HIGH;
+    debounce.quickstep(transientHigh);
+  }
+
+  stance transientHigh(){
+    oneShot = LOW;
+    if(!digitalRead(SWITCH)) debounce.quickstep(transientLow);
+    debounce.sequence(600, stableHigh);
+  }
+
+  stance stableHigh(){
+    if(!digitalRead(SWITCH)) debounce.passodoble(showYELLOW, transientLow);
+  }
+
+  stance transientLow(){
+    if(digitalRead(SWITCH)) debounce.quickstep(transientHigh);
+    debounce.sequence(600, showRED, stableLow);
+  }
+  // Main machine
   stance forth(){
     forthManager.dance();
-    manager.sequence(4500, back);
-  };
+    if(oneShot) manager.quickstep(back);
+  };//forth
 
   stance back(){
     backManager.dance();
-    manager.sequence(4500, backAndForth);
-  };
+    if(oneShot) manager.quickstep(backAndForth);
+  };//back
 
   stance backAndForth(){
     bNfManager.dance();
-    manager.sequence(4800, forth);
-  };
+    if(oneShot) manager.quickstep(forth);
+  };//backAndForth
 
+  // Submachines, all very similar
   stance forth1(){forthManager.sequence(500, showRED, forth2);};
   stance forth2(){forthManager.sequence(500, showYELLOW, forth3);};
   stance forth3(){forthManager.sequence(500, showGREEN, forth1);};
