@@ -22,7 +22,7 @@ Choreography bNfManager(bNf1);
 
 //statemachine for debouncing input
 stance stableLow(); stance transientHigh(); stance transientLow(); stance stableHigh();
-Choreography debounce(stableLow, micros);
+Choreography debounce(stableHigh, micros);
 
 //display functions showing a single color
 stance showRED(){
@@ -43,7 +43,7 @@ stance showGREEN(){
   digitalWrite(GREENPIN, 1);
 }//showGREEN
 
-boolean oneShot = LOW;
+boolean oneShot = LOW;//signals SWITCH LOW->HIGH
 
 void setup() {
   pinMode(REDPIN, OUTPUT);
@@ -63,22 +63,23 @@ stance stableLow(){
   if(!digitalRead(SWITCH)) return;  //switch is low
   oneShot = HIGH;
   debounce.quickstep(transientHigh);
-}
+}//stableLow
 
 stance transientHigh(){
   oneShot = LOW;
   if(!digitalRead(SWITCH)) debounce.quickstep(transientLow);
   debounce.sequence(600, stableHigh);
-}
+}//transientHigh
 
 stance stableHigh(){
-  if(!digitalRead(SWITCH)) debounce.passodoble(showYELLOW, transientLow);
-}
+  if(!digitalRead(SWITCH)) debounce.quickstep(transientLow);
+}//stableHigh
 
 stance transientLow(){
   if(digitalRead(SWITCH)) debounce.quickstep(transientHigh);
-  debounce.sequence(600, showRED, stableLow);
-}
+  debounce.sequence(600, stableLow);
+}//transientLow
+
 // Main machine
 stance forth(){
   forthManager.dance();
