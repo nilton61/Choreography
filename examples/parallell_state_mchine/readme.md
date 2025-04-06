@@ -2,7 +2,29 @@
 
 In this example we have 3 separate state machines in order to exemplify how Choreography can be used to run several state machines independently without the need for threads or schedulers. They are implemented in an array of 3 instances of Choreography called blinker. Parallel state machines are useful in all situations where parallel processes have to be handled independently like reading sensors, updating displays, controlling actuators without blocking the main program logic.
 
-We have extensive use of enums to avoid numeric literals so the instances are called blinker[RED], blinker[YELLOW], blinker[GREEN]. Each statemachine has a single state that transfers to itself at different microsecond intervals. These intervals are prime numbers chosen to give a very long pattern of repetition. The least common multiple of several prime numbers is their product giving a period of 809989 * 1310867 * 2120753 = 2.25e18 or about 26 days
+We have extensive use of enums to avoid numeric literals so the instances are called blinker[RED], blinker[YELLOW], blinker[GREEN]. Each statemachine has a single state that transfers to itself at different microsecond intervals. These intervals are prime numbers chosen to give a very long pattern of repetition. The least common multiple of several prime numbers is their product giving a period of 809989 * 1310867 * 2120753 = 2.25e18 or about 26 days. 
+
+### State diagram
+
+```mermaid
+stateDiagram-v2
+    direction TB
+    
+    state RED_LED {
+        redBlink: Red Blink
+        redBlink --> redBlink: 809989µs / changeRED
+    }
+    
+    state YELLOW_LED {
+        yellowBlink: Yellow Blink
+        yellowBlink --> yellowBlink: 1310867µs / changeYELLOW
+    }
+    
+    state GREEN_LED {
+        greenBlink: Green Blink
+        greenBlink --> greenBlink: 2120753µs / changeGREEN
+    }
+```
 
 ## Code structure
 
