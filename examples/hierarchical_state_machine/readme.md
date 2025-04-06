@@ -107,4 +107,10 @@ The passodouble(setupFunction, newState) and sequence(intervall, setupFunction, 
     - lines 102 - 105: forth sub machine, pattern: red, yellow, green
     - lines 107 - 110: back sub machine, pattern: green, yellow, red
     - lines 112 - 116: back and forth sub machine, pattern: red, yellow, green, yellow
+ 
+## Performance
+
+when compiled on an Arduino Nano:
+RAM:   [          ]   2.4% (used 50 bytes from 2048 bytes)
+Flash: [=         ]   6.3% (used 1922 bytes from 30720 bytes)
 
