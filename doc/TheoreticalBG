@@ -23,9 +23,11 @@ Classical finite state machines are formally defined as a 5-tuple (Q, Σ, δ, q0
 
 While maintaining the mathematical robustness of traditional state machines, Choreography offers enhanced flexibility by:
 
-- Encapsulating state-specific logic in separate functions
+- Encapsulating state-specific logic in separate functions. Each state is represented by a function of type stance which i solely respoansible for both processing its own input and managing the transitions to other functions
 - Allowing complex transition conditions beyond simple input symbols
 - Providing timing-based transitions through the `sequence` method
-- Supporting initialization routines via the `passodoble` function
+- Supporting initialization routines via the `passodoble` function as well as an overloaded version of `sequence` adding time intervalls to passodoble
+   - The use of initialisation routines is very common. A good example would be the `setup` and `loop` functionality of the Arduino framework itself. But this is useful in many places, like updating counters and displaus, sending messages and other places where a single action is needed.
+   - Also the use of timekeeping is crucial in control systems. Choreography has the abilty to keep track of the time spent in a state with the `timeInStance` function as well as initiating timed state transitions with the`sequence` functions
 
 This approach results in more readable, maintainable code while preserving the power of the formal state machine model.

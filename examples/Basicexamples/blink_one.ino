@@ -1,14 +1,14 @@
 #include <Arduino.h>
 #include <Choreography.h>
 
-// Fördeklarera funktioner
+// declare constants and variables
 #define LED_PIN 13
 int ledState = LOW;
 
-// Fördeklarera funktionerna
+// forward declare stances
 stance blink();
 
-// Skapa instans med initial tillståndsfunktion
+// create single instance of Choreography
 Choreography ledDancer(blink);
 
 void setup() {
@@ -17,10 +17,11 @@ void setup() {
 
 void loop() {
   ledDancer.dance();
+  // loop is free for other code
 }//loop
 
 stance change() {
-  ledState = !ledState;  // Slå om LED-tillståndet  
+  ledState = !ledState;  //toggle LED state   
   digitalWrite(LED_PIN, ledState);
 }//change
 
