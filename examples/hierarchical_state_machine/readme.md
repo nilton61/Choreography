@@ -111,6 +111,6 @@ The passodouble(setupFunction, newState) and sequence(intervall, setupFunction, 
 ## Performance
 
 when compiled on an Arduino Nano:
-RAM:   [          ]   2.4% (used 50 bytes from 2048 bytes)
-Flash: [=         ]   6.3% (used 1922 bytes from 30720 bytes)
+RAM: = 2.4% (used 50 bytes from 2048 bytes)
+Flash: = 6.3% (used 1922 bytes from 30720 bytes)
 
