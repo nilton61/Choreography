@@ -5,7 +5,7 @@ It is often the case that state mechines need to be organised in several ways. W
 
 ## State machine
 
-In this example we are showing how Choreography can be used to implement hierarchical state machines. We have a main state machine with 3 states: forth, back, backAndForth. Each of the main states shows a diffrent pattern of blinking leds. Each of these patterns is a state machine of its own. The following diagram explains this:
+In this example we are showing how Choreography can be used to implement hierarchical state machines. We have a main state machine with 3 states: forth, back, backAndForth. Each of the main states shows a diffrent pattern of blinking leds. The transition between states is controlled by reading the oneShot bollean variable set by the debounce machine below.  Each of these patterns is a state machine of its own. The following state diagram explains this:
 
 ```mermaid
 stateDiagram-v2
@@ -38,7 +38,7 @@ stateDiagram-v2
     }
 ```
 
-The trasitions between the main states are controlled by a user pushbutton switch which has its own state machine for debouncing. The debounce state machine communicates its actions via a boolean variable named oneShot, which is high exactly 1 arduino-loop cycle when pressed by the user. The time constant 600us is chosen to exceed one single bounce. The state diagram is as following
+The trasitions between the main states are controlled by an active low user pushbutton switch which has its own state machine for debouncing. The debounce state machine communicates its actions via a boolean variable named oneShot, which is high exactly 1 arduino-loop cycle when pressed by the user. The time constant 600us is chosen to exceed one single bounce. The state diagram is as following
 
 ```mermaid
 stateDiagram
