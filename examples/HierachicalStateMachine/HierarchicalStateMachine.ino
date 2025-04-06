@@ -1,9 +1,10 @@
 #include <Arduino.h>
 #include <Choreography.h>
 
-enum {RED, YELLOW, GREEN, NCOLOR};
-enum {REDPIN = 14, YELLOWPIN, GREENPIN, SWITCH};
+enum {RED, YELLOW, GREEN, NCOLOR};                  //assign colors to values
+enum {REDPIN = 14, YELLOWPIN, GREENPIN, SWITCH};    //assign pins
 
+//Forward declararions
 // Main machine
 stance forth(); stance back(); stance backAndForth();
 Choreography manager(forth);
@@ -22,7 +23,7 @@ Choreography bNfManager(bNf1);
 
 //statemachine for debouncing input
 stance stableLow(); stance transientHigh(); stance transientLow(); stance stableHigh();
-Choreography debounce(stableHigh, micros);
+Choreography debounce(stableHigh, micros);//SWITCH is active low
 
 //display functions showing a single color
 stance showRED(){
@@ -43,7 +44,7 @@ stance showGREEN(){
   digitalWrite(GREENPIN, 1);
 }//showGREEN
 
-boolean oneShot = LOW;//signals SWITCH LOW->HIGH
+boolean oneShot = LOW;//used for signalling switch transition
 
 void setup() {
   pinMode(REDPIN, OUTPUT);
@@ -61,21 +62,22 @@ void loop() {
 //debounce stances
 stance stableLow(){
   if(!digitalRead(SWITCH)) return;  //switch is low
-  oneShot = HIGH;
   debounce.quickstep(transientHigh);
 }//stableLow
 
 stance transientHigh(){
-  oneShot = LOW;
   if(!digitalRead(SWITCH)) debounce.quickstep(transientLow);
   debounce.sequence(600, stableHigh);
 }//transientHigh
 
 stance stableHigh(){
-  if(!digitalRead(SWITCH)) debounce.quickstep(transientLow);
+  if(digitalRead(SWITCH)) return;
+  oneShot = HIGH;//signal switch activated
+  debounce.quickstep(transientLow);
 }//stableHigh
 
 stance transientLow(){
+  oneShot = LOW;//reset oneshot
   if(digitalRead(SWITCH)) debounce.quickstep(transientHigh);
   debounce.sequence(600, stableLow);
 }//transientLow
