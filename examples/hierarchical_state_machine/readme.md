@@ -1,5 +1,10 @@
 # Example: Hierarchical State machine
 
+## Context
+It is often teh case that state mechines need to be organised in several ways. We need to run several machines in parallel independent of each other or we need to run them in a hierarchical fashion where only specific sub states are active at any one given time controlled by the states of a higher level state machine. This example tries to illustrate this with an Arduiono Nano on a keyestudio lab board. This lab board has several switches, leds, displays and other I/O facilities easily configured by jump wires
+
+## State machine
+
 In this example we are showing how Choreography can be used to implement hierarchical state machines. We have a main state machine with 3 states: forth, back, backAndForth. Each of the main states shows a diffrent pattern of blinking leds. Each of these patterns is a state machine of its own. The following diagram explains this:
 
 ```mermaid
