@@ -4,7 +4,7 @@
 enum {RED, YELLOW, GREEN, NCOLOR};                  //assign colors to values
 enum {REDPIN = 14, YELLOWPIN, GREENPIN, SWITCH};    //assign pins
 
-//Forward declararions
+//Forward declarations
 // Main machine
 stance forth(); stance back(); stance backAndForth();
 Choreography manager(forth);
