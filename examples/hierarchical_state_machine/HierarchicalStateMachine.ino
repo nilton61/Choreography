@@ -99,13 +99,18 @@ stance backAndForth(){
 };//backAndForth
 
 // Submachines, all very similar
+//forth sub machine
 stance forth1(){forthManager.sequence(500, showRED, forth2);};
 stance forth2(){forthManager.sequence(500, showYELLOW, forth3);};
 stance forth3(){forthManager.sequence(500, showGREEN, forth1);};
+
+//back sub machine
 stance back1(){backManager.sequence(500, showGREEN, back2);};
 stance back2(){backManager.sequence(500, showYELLOW, back3);};
 stance back3(){backManager.sequence(500, showRED, back1);};
 stance bNf1(){bNfManager.sequence(500, showRED, bNf2);};
+
+//backAndForth sub machine
 stance bNf2(){bNfManager.sequence(500, showYELLOW, bNf3);};
 stance bNf3(){bNfManager.sequence(500, showGREEN, bNf4);};
 stance bNf4(){bNfManager.sequence(500, showYELLOW, bNf1);};
