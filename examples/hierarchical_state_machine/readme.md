@@ -105,6 +105,6 @@ The passodouble(setupFunction, newState) and sequence(intervall, setupFunction, 
     - lines 96 - 99: backAndForth, pattern: red, yellow, green, yellow
 - lines 101 - 116: sub machine stances
     - lines 102 - 105: forth sub machine, pattern: red, yellow, green
-    - lines 107 - 111: back sub machine, pattern: green, yellow, red
-    - lines 113 - 116: back and forth sub machine, pattern: red, yellow, green, yellow
+    - lines 107 - 110: back sub machine, pattern: green, yellow, red
+    - lines 112 - 116: back and forth sub machine, pattern: red, yellow, green, yellow
 
