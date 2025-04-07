@@ -16,9 +16,23 @@ This is a very basic example of how to use the Choreography library. It works th
 - a stance state: `blink()`. The only code executed in this state is to check the time spent in this state and transition when this exceeds 1000ms
 - a timed transition with setup functionality: `ledDancer.sequence`. For the sake of cimplicity this transition leads to itself updating the timestamp in the process
 
+This is illustrated by this state diagram:
+```mermaid
+stateDiagram-v2
+direction LR
+red --> red: 1000ms
+```
+
 # Blink two a and b
 
-These two examples explore the functionalty of Choreography in different ways:
+These two examples explore the functionalty of Choreography in different ways. They share the same state diagram:
+```mermaid
+stateDiagram-v2
+direction TB
+[*] --> red
+red --> yellow: 1000ms
+yellow --> red: 1000ms
+```
 
 ## Blink two a
 `blink_two_a`: makes use of the very basic functionality of Choreography:
