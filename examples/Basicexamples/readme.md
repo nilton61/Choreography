@@ -33,3 +33,4 @@ These two examples explore the functionalty of Choreography in different ways:
 
 `blink_two_b`: uses one of the more advanced facilities of Chreography:
 - `sequence(intervall, setupFunction, newStance)`
+It also makes use of the setup functionality in order to separate program flow and input/output manipulation. This often results in cleaner, more readable code. 
