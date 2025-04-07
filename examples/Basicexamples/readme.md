@@ -1,6 +1,6 @@
 # Overview
 
-In choreography a state are called stance and there are number of ways to transition between them. We also have the control mechanism which is an instance of Choreography (the controller). This provides the method of running the state machine: dance and in addition several methods of initialise state transitions:
+In choreography a state is called stance and there are number of ways to transition between them. We also have the control mechanism which is an instance of Choreography (the controller). This provides the method of running the state machine: dance and in addition several methods of initialise state transitions:
 - `quickstep(nextStance)`: this makes the next call to `dance()` run `nextStance()` instead of the current stance
 - `passodoble(setupFunction, nextStance)`: this calles the `setupFunction()` once before reverting to the same state transition mechanism as `quickstep()`
 There are two transition methods that are automatically involved when the time in the stance has become equal or greater to the time specified. The timebase can be eiter microseconds or milliseconds as determined when instantiating the controller. Both these methods have the same name but differ in their parameters:
@@ -41,7 +41,23 @@ yellow --> red: 1000ms
 
 ### Code structure
 
+#### Preamble
+- lines 1 - 2: include files for arduino and Choreography
+- line 4: forward declaration of Choreography stances
+- line 5: instantiation of Choreography object: `colorblink`
+- line 7: declaring consecutive pin numbers with enum
+
+#### Code
+- lines 9 - 12: arduino `setup()` function
+- lines 14 - 16: arduino `loop()` function
+- lines 18 - 22: Choreography `stance red()`
+- lines 24 - 28: Choreography `stance yellow()`
+
 ### Performance
+
+When compiled to an Arduino Nano:
+- RAM: 0.8% (used 17 bytes from 2048 bytes)
+- Flash: 3.5% (used 1078 bytes from 30720 bytes)
 
 ## Blink two b
 
