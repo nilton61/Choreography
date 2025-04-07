@@ -11,7 +11,23 @@ We also have a function that returns the time spent in the stance since the last
 The most central method of Choreography is:
 - `controller.dance()`: it will call the current stance function once and thus must be called regularly. As fast as possible to ensure good response, thus the need for non-blocking code in the entire codebase using Choreography
 
-## Blink one
+# Blink one
 This is a very basic example of how to use the Choreography library. It works the same way as the `Blink without delay` example but the level of abstraction is a bit higher making it easier to generalise. In state machine terminolgy we have:
 - a stance state: `blink()`. The only code executed in this state is to check the time spent in this state and transition when this exceeds 1000ms
 - a timed transition with setup functionality: `ledDancer.sequence`. For the sake of cimplicity this transition leads to itself updating the timestamp in the process
+
+# Blink two a and b
+
+These two examples explore the functionalty of Choreography in different ways:
+
+## Blink two a
+`blink_two_a`: makes use of the very basic functionality of Choreography:
+- `quickstep()`: changes the acrive state by the next run of controller.dance
+- `timeInStance`: returns the number of time units since entering the stance
+
+### Code structure
+
+### Performance
+
+## Blink two b
+
